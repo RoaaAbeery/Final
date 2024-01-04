@@ -18,12 +18,8 @@ import lombok.Setter;
 public class Evaluation {
     @Id
     Integer id;
-    //user
-    //FoodTruck
     @ManyToOne
     @JoinColumn(name = "foodTruck_id",referencedColumnName = "id")
     @JsonIgnore
     private FoodTruck foodTruck;
-    private Double rate;
-    private String comment;
 }

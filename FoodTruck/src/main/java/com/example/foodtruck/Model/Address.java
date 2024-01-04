@@ -1,14 +1,14 @@
 package com.example.foodtruck.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.context.annotation.Profile;
+
+import java.util.Set;
 
 @Getter
 @Setter
@@ -28,5 +28,6 @@ public class Address {
     @JoinColumn(name = "user_id",referencedColumnName = "id")
     @JsonIgnore
     private User user;
+
 
 }

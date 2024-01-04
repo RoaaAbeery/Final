@@ -14,30 +14,19 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class FoodTruck {
+@Table(name = "abs")
+public class FoodTruck{
     @Id
-   private Integer id;
-    //category
-    private  String License;
+    private Integer id;
+    private String License;
+    private String startDate;
     private Integer NumberOfEmployee;
-    private String status;
-    private String name;
-    private String phone;
-    private String email;
-    private String password;
-    private Double rate;
-
-
- @ManyToOne
-    @JoinColumn(name = "category_id",referencedColumnName = "id")
-    @JsonIgnore
-    private Category category;
-
-    @OneToOne
-    @MapsId
-    @JsonIgnore
+    private String city;
+    private String cond;
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "foodTruck")
+    @PrimaryKeyJoinColumn
     private Service service;
-
+//
     @ManyToOne
     @JoinColumn(name = "evaluation_id",referencedColumnName = "id")
     @JsonIgnore
@@ -45,4 +34,5 @@ public class FoodTruck {
 
     @OneToMany(cascade = CascadeType.ALL,mappedBy = "foodTruck")
     private Set<Ticket> ticket;
+
 }

@@ -14,12 +14,10 @@ import java.time.LocalDate;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "aa")
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
-    //user
-    //foodTruck
+   private Integer id;
     private LocalDate date;
     private Integer numberOfDay;
     private Double totalPrice;
@@ -31,4 +29,7 @@ public class Order {
     @JoinColumn(name = "user_id",referencedColumnName = "id")
     @JsonIgnore
     private User user;
+    @OneToOne(cascade = CascadeType.ALL,mappedBy = "order")
+    @PrimaryKeyJoinColumn
+    private Ticket ticket;
 }
