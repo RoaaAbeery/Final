@@ -26,7 +26,7 @@ public class FoodTruck{
     @OneToOne(cascade = CascadeType.ALL,mappedBy = "foodTruck")
     @PrimaryKeyJoinColumn
     private Service service;
-//
+
     @ManyToOne
     @JoinColumn(name = "evaluation_id",referencedColumnName = "id")
     @JsonIgnore

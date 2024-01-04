@@ -15,6 +15,7 @@ import lombok.Setter;
 public class Profile {
     @Id
     private Integer id;
+    private String aa;
 
     @OneToOne
     @MapsId
