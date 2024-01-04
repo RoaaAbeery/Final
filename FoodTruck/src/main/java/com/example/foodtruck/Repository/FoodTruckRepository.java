@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 
 public interface FoodTruckRepository extends JpaRepository<FoodTruck,Integer> {
+    FoodTruck findFoodTruckById(Integer id);
 }
