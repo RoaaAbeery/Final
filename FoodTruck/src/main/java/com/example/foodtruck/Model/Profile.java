@@ -3,8 +3,8 @@ package com.example.foodtruck.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,15 +15,12 @@ import lombok.Setter;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Evaluation {
+public class Profile {
     @Id
-    Integer id;
-    //user
-    //FoodTruck
-    @ManyToOne
-    @JoinColumn(name = "foodTruck_id",referencedColumnName = "id")
+    private Integer id;
+
+    @OneToOne
+    @MapsId
     @JsonIgnore
-    private FoodTruck foodTruck;
-    private Double rate;
-    private String comment;
+    private User user;
 }

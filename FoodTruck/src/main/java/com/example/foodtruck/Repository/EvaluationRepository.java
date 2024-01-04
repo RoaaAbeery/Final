@@ -7,5 +7,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 
 public interface EvaluationRepository extends JpaRepository<Evaluation,Integer> {
-    Evaluation findEvaluationById(Integer id);
 }

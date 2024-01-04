@@ -3,7 +3,6 @@ package com.example.foodtruck.Service;
 import com.example.foodtruck.Api.ApiException;
 import com.example.foodtruck.Model.Address;
 import com.example.foodtruck.Repository.AddressRepository;
-import com.example.foodtruck.Repository.CompanyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +12,6 @@ import java.util.List;
 @Service
 public class AddressService {
     private final AddressRepository addressRepository;
-     private final CompanyRepository companyRepository;
     public List<Address> getAll(){
         return addressRepository.findAll();
     }
