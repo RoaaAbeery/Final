@@ -1,7 +1,6 @@
 package com.example.foodtruck.Controller;
 
 import com.example.foodtruck.Model.FoodTruck;
-import com.example.foodtruck.Model.User;
 import com.example.foodtruck.Service.FoodTruckService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

@@ -1,8 +1,11 @@
 package com.example.foodtruck.Service;
 
 import com.example.foodtruck.Api.ApiException;
+import com.example.foodtruck.DTO.OrderDTO;
 import com.example.foodtruck.Model.Order;
+import com.example.foodtruck.Model.User;
 import com.example.foodtruck.Repository.OrderRepository;
+import com.example.foodtruck.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,24 +15,31 @@ import java.util.List;
 @Service
 public class OrderService {
     private final OrderRepository orderRepository;
+    private final UserRepository userRepository;
     public List<Order> getAll(){
         return orderRepository.findAll();
     }
-    public void addOrder(Order order){
-        Order or=orderRepository.findOrderById(order.getId());
-        if (or == null) {
-            throw new ApiException("the id nt found");
+    public void addOrder(OrderDTO orderDTO){
+        User user=userRepository.findUserById(orderDTO.getUser_id());
+        if (user == null) {
+            throw new ApiException("the id user not found");
         }
-        orderRepository.save(or);
-    }
-    public void updateOrder(Integer auth ,Order order) {
-        Order oldOrder = orderRepository.findOrderById(auth);
-        if (oldOrder == null) {
-            throw new ApiException("the id nt found");
-        }
-        order.setId(oldOrder.getId());
+        Order order=new Order(null,orderDTO.getDate(),orderDTO.getNumberOfDay(),orderDTO.getTotalPrice(),orderDTO.getOrderStatus(),orderDTO.getNote(),orderDTO.getDiscount(),user,null);
         orderRepository.save(order);
     }
+    public void updateOrder(Integer auth ,OrderDTO orderDTO) {
+        User user=userRepository.findUserById(auth);
+        if (user == null) {
+            throw new ApiException("the id user not found");
+        }
+        if (orderDTO.getUser_id()==auth) {
+
+            Order order = new Order(null, orderDTO.getDate(), orderDTO.getNumberOfDay(), orderDTO.getTotalPrice(), orderDTO.getOrderStatus(), orderDTO.getNote(), orderDTO.getDiscount(), user, null);
+            orderRepository.save(order);
+        }else throw new ApiException("the user id not same");
+    }
+
+
     public void deleteOrder(Integer auth){
         Order order = orderRepository.findOrderById(auth);
         if (order == null) {

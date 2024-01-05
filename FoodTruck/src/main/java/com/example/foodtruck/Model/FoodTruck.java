@@ -25,7 +25,7 @@ public class FoodTruck{
     private String cond;
     @OneToOne(cascade = CascadeType.ALL,mappedBy = "foodTruck")
     @PrimaryKeyJoinColumn
-    private Service service;
+    private Services services;
 
     @ManyToOne
     @JoinColumn(name = "evaluation_id",referencedColumnName = "id")

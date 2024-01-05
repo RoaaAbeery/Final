@@ -16,14 +16,14 @@ public class UserService {
         return userRepository.findAll();
     }
     public void addClient(User user){
-        User add= userRepository.findClientById(user.getId());
+        User add= userRepository.findUserById(user.getId());
         if (add == null) {
             throw new ApiException("the id nt found");
         }
         userRepository.save(add);
     }
     public void updateClint(Integer auth , User user) {
-        User oldadd = userRepository.findClientById(auth);
+        User oldadd = userRepository.findUserById(auth);
         if (oldadd == null) {
             throw new ApiException("the id nt found");
         }
@@ -31,7 +31,7 @@ public class UserService {
         userRepository.save(user);
     }
     public void deletClient(Integer auth){
-        User user = userRepository.findClientById(auth);
+        User user = userRepository.findUserById(auth);
         if (user == null) {
             throw new ApiException("the id nt found");
         }

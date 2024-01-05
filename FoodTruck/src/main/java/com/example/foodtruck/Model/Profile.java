@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @Entity
@@ -15,7 +17,11 @@ import lombok.Setter;
 public class Profile {
     @Id
     private Integer id;
-    private String aa;
+    private String name;
+    private String address;
+    private String description;
+    private LocalDateTime AccountCreationDate =LocalDateTime.now();
+    ;
 
     @OneToOne
     @MapsId

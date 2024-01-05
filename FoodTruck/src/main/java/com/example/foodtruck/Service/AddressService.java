@@ -1,8 +1,11 @@
 package com.example.foodtruck.Service;
 
 import com.example.foodtruck.Api.ApiException;
+import com.example.foodtruck.DTO.AddressDTO;
 import com.example.foodtruck.Model.Address;
+import com.example.foodtruck.Model.User;
 import com.example.foodtruck.Repository.AddressRepository;
+import com.example.foodtruck.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,23 +15,28 @@ import java.util.List;
 @Service
 public class AddressService {
     private final AddressRepository addressRepository;
+    private final UserRepository userRepository;
     public List<Address> getAll(){
         return addressRepository.findAll();
     }
-    public void addAddress(Address address){
-        Address add=addressRepository.findAddressById(address.getId());
-        if (add == null) {
-            throw new ApiException("the id nt found");
+    public void addAddress(AddressDTO addressDTO){
+        User user=userRepository.findUserById(addressDTO.getUser_id());
+        if (user == null) {
+            throw new ApiException("the id user not found");
         }
+        Address address =new Address(null,addressDTO.getAddress(),addressDTO.getStartDate(),addressDTO.getNumberWeek(),addressDTO.getCity(),addressDTO.getStreet(),user);
         addressRepository.save(address);
     }
-    public void updateAddress(Integer auth ,Address address) {
-        Address oldadd = addressRepository.findAddressById(auth);
-        if (oldadd == null) {
-            throw new ApiException("the id nt found");
+    public void updateAddress(Integer auth ,AddressDTO addressDTO) {
+        User user=userRepository.findUserById(auth);
+        if (user == null) {
+            throw new ApiException("the id user not found");
         }
-        address.setId(oldadd.getId());
-        addressRepository.save(address);
+        if (addressDTO.getUser_id()==auth) {
+
+            Address address = new Address(null, addressDTO.getAddress(), addressDTO.getStartDate(), addressDTO.getNumberWeek(), addressDTO.getCity(), addressDTO.getStreet(), user);
+            addressRepository.save(address);
+        }else throw new ApiException("the user id not same");
     }
     public void deleteAddress(Integer auth){
         Address address = addressRepository.findAddressById(auth);
