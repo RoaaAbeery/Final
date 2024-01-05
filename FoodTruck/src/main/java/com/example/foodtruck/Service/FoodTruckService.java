@@ -38,4 +38,6 @@ public class FoodTruckService {
         }
         foodTruckRepository.delete(food);
     }
+
+    Integer a= 0;
 }
