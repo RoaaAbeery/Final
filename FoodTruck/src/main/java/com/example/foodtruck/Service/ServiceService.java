@@ -30,14 +30,22 @@ public class ServiceService {
         serviceRepository.save(services);
     }
     public void updateService(Integer auth,ServiceDTO serviceDTO){
-        FoodTruck foodTruck=foodTruckRepository.findFoodTruckById(auth);
-        if (foodTruck == null) {
+//        FoodTruck foodTruck=foodTruckRepository.findFoodTruckById(auth);
+        Services service=serviceRepository.findServiceById(auth);
+        if (service == null) {
             throw new ApiException("the food truck not found");
         }
-        if (serviceDTO.getFood_truck_id() ==auth) {
-            Services services=new Services(null,serviceDTO.getProduct(),serviceDTO.getSize(),serviceDTO.getBasicDevice(),serviceDTO.getSideDevice(),serviceDTO.getBrief(),serviceDTO.getStartDate(),foodTruck);
-            serviceRepository.save(services);
-        }else throw new ApiException("the id food truck not same");
+        service.setProduct(serviceDTO.getProduct());
+        service.setSize(serviceDTO.getSize());
+        service.setBasicDevice(serviceDTO.getBasicDevice());
+        service.setSideDevice(serviceDTO.getSideDevice());
+        service.setBrief(serviceDTO.getBrief());
+        service.setStartDate(serviceDTO.getStartDate());
+        serviceRepository.save(service);
+//        if (serviceDTO.getFood_truck_id() ==auth) {
+//            Services services=new Services(null,serviceDTO.getProduct(),serviceDTO.getSize(),serviceDTO.getBasicDevice(),serviceDTO.getSideDevice(),serviceDTO.getBrief(),serviceDTO.getStartDate(),foodTruck);
+//            serviceRepository.save(services);
+//        }else throw new ApiException("the id food truck not same");
     }
     public void deleteService(Integer auth){
         Services services=serviceRepository.findServiceById(auth);

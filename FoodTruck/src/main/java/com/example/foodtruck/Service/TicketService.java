@@ -37,19 +37,22 @@ public class TicketService {
         ticketRepository.save(ticket);
     }
     public void updateTicket(Integer auth,TicketDTO ticketDTO){
-        Order order=orderRepository.findOrderById(auth);
-        if (order == null) {
-            throw new ApiException("the order not found");
+//        Order order=orderRepository.findOrderById(auth);
+        Ticket ticket=ticketRepository.findTicketById(auth);
+        if (ticket == null) {
+            throw new ApiException("the ticket not found");
         }
-        User user=userRepository.findUserById(order.getUser().getId());
-        if (user == null) {
-            throw new ApiException("the id user not found");
-        }
+//        User user=userRepository.findUserById(order.getUser().getId());
+//        if (user == null) {
+//            throw new ApiException("the id user not found");
+//        }
+        ticket.setStatus(ticketDTO.getStatus());
+        ticketRepository.save(ticket);
 
-        if (ticketDTO.getOrder_id()==auth) {
-            Ticket ticket=new Ticket(null,ticketDTO.getStatus(),null,order,user);
-            ticketRepository.save(ticket);
-        }
+//        if (ticketDTO.getOrder_id()==auth) {
+//            Ticket ticket=new Ticket(null,ticketDTO.getStatus(),null,order,user);
+//            ticketRepository.save(ticket);
+//        }
 
     }
     public void deleteTicket(Integer auth){

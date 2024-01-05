@@ -28,15 +28,22 @@ public class AddressService {
         addressRepository.save(address);
     }
     public void updateAddress(Integer auth ,AddressDTO addressDTO) {
-        User user=userRepository.findUserById(auth);
-        if (user == null) {
-            throw new ApiException("the id user not found");
+//        User user=userRepository.findUserById(auth);
+        Address address=addressRepository.findAddressById(auth);
+        if (address == null) {
+            throw new ApiException("the id address not found");
         }
-        if (addressDTO.getUser_id()==auth) {
-
-            Address address = new Address(null, addressDTO.getAddress(), addressDTO.getStartDate(), addressDTO.getNumberWeek(), addressDTO.getCity(), addressDTO.getStreet(), user);
-            addressRepository.save(address);
-        }else throw new ApiException("the user id not same");
+        address.setAddress(address.getAddress());
+        address.setStartDate(addressDTO.getStartDate());
+        address.setNumberWeek(addressDTO.getNumberWeek());
+        address.setCity(addressDTO.getCity());
+        address.setStreet(addressDTO.getStreet());
+        addressRepository.save(address);
+//        if (addressDTO.getUser_id()==auth) {
+//
+//            Address address = new Address(null, addressDTO.getAddress(), addressDTO.getStartDate(), addressDTO.getNumberWeek(), addressDTO.getCity(), addressDTO.getStreet(), user);
+//            addressRepository.save(address);
+//        }else throw new ApiException("the user id not same");
     }
     public void deleteAddress(Integer auth){
         Address address = addressRepository.findAddressById(auth);

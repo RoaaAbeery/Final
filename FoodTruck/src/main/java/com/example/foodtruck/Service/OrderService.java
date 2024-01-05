@@ -28,15 +28,22 @@ public class OrderService {
         orderRepository.save(order);
     }
     public void updateOrder(Integer auth ,OrderDTO orderDTO) {
-        User user=userRepository.findUserById(auth);
-        if (user == null) {
+//        User user=userRepository.findUserById(auth);
+        Order orders=orderRepository.findOrderById(auth);
+        if (orders == null) {
             throw new ApiException("the id user not found");
         }
-        if (orderDTO.getUser_id()==auth) {
-
-            Order order = new Order(null, orderDTO.getDate(), orderDTO.getNumberOfDay(), orderDTO.getTotalPrice(), orderDTO.getOrderStatus(), orderDTO.getNote(), orderDTO.getDiscount(), user, null);
-            orderRepository.save(order);
-        }else throw new ApiException("the user id not same");
+        orders.setDate(orderDTO.getDate());
+        orders.setNumberOfDay(orderDTO.getNumberOfDay());
+        orders.setTotalPrice(orderDTO.getTotalPrice());
+        orders.setOrderStatus(orderDTO.getOrderStatus());
+        orders.setNote(orderDTO.getNote());
+        orders.setDiscount(orderDTO.getDiscount());
+        orderRepository.save(orders);
+//        if (orderDTO.getUser_id()==auth) {
+//            Order order = new Order(null, orderDTO.getDate(), orderDTO.getNumberOfDay(), orderDTO.getTotalPrice(), orderDTO.getOrderStatus(), orderDTO.getNote(), orderDTO.getDiscount(), user, null);
+//            orderRepository.save(order);
+//        }else throw new ApiException("the user id not same");
     }
 
 
